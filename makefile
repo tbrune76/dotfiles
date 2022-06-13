@@ -1,6 +1,6 @@
 all:
-	stow --verbose --target=$$HOME --restow */
+	xstow -v -t $$HOME -R */
 
 delete:
-	stow --verbose --target $$HOME --delete */
+	xstow -v -t $$HOME -D */
 
