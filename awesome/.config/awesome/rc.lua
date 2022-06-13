@@ -24,6 +24,9 @@ local hotkeys_popup = require("awful.hotkeys_popup")
                       require("awful.hotkeys_popup.keys")
 local mytable       = awful.util.table or gears.table -- 4.{0,1} compatibility
 
+
+local hostname = io.lines("/proc/sys/kernel/hostname")()
+
 -- }}}
 
 -- {{{ Error handling
@@ -101,12 +104,17 @@ local themes = {
 local chosen_theme = themes[5]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
-local terminal     = "alacritty"
 local vi_focus     = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "nvim"
 local browser      = "qutebrowser"
 local rofi_theme   = "gruvbox-dark"
+if hostname == "latitude" then
+    terminal     = "xterm"
+else
+    terminal     = "alacritty"
+end
+
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5" }
