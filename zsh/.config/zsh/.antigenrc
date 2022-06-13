@@ -1,0 +1,17 @@
+antigen use oh-my-zsh
+
+antigen bundles <<EOBUNDLES
+	git
+	colorize
+	colored-man-pages
+	fzf
+	zoxide
+	zsh-users/zsh-syntax-highlighting
+	zsh-users/zsh-autosuggestions
+	zsh-users/zsh-completions
+EOBUNDLES
+
+antigen theme trapd00r
+
+antigen apply
+

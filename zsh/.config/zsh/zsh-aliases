@@ -1,0 +1,43 @@
+#!/bin/sh
+#alias j='z'
+alias f='zi'
+which lazygit > /dev/null && alias g='lazygit'
+#alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
+#alias vimconfig='${EDITOR} ~/.config/nvim/init.vim'
+#alias vimlua='${EDITOR} ~/.config/nvim/init.lua'
+alias zshconfig='${EDITOR} ~/.zshrc'
+
+alias v='nvim'
+alias vi='nvim'
+alias vim='nvim'
+
+# Colorize grep output (good for log files)
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# confirm before overwriting something
+#alias cp='cp -i'
+#alias mv='mv -i'
+#alias rm='rm -i'
+
+# easier to read disk
+alias df='df -h'     # human-readable sizes
+alias free='free -m' # show sizes in MB
+
+# get top process eating memory
+alias psmem='ps auxf | sort -nr -k 4 | head -5'
+
+# get top process eating cpu ##
+alias pscpu='ps auxf | sort -nr -k 3 | head -5'
+
+alias ls='exa'
+alias ll='exa -lg'
+alias la='exa -lga'
+
+# gpg encryption
+# verify signature for isos
+#alias gpg-check="gpg --keyserver-options auto-key-retrieve --verify"
+# receive the key of a developer
+#alias gpg-retrieve="gpg --keyserver-options auto-key-retrieve --receive-keys"
+
