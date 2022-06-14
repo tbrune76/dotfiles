@@ -36,3 +36,5 @@ fi
 fpath+=${ZDOTDIR:-~}/completions
 
 eval $(thefuck --alias)
+
+neofetch
