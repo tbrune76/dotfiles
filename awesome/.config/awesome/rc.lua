@@ -71,7 +71,9 @@ local function run_once(cmd_arr)
     end
 end
 
---run_once({ "urxvtd", "unclutter --root" }) -- comma-separated entries
+if hostname == "latitude" then
+    run_once({ "urxvtd" }) -- comma-separated entries
+end
 run_once({ "unclutter --root", "/usr/bin/emacs --daemon", "conky" }) -- comma-separated entries
 
 -- This function implements the XDG autostart specification
@@ -110,7 +112,7 @@ local editor       = os.getenv("EDITOR") or "nvim"
 local browser      = "qutebrowser"
 local rofi_theme   = "gruvbox-dark"
 if hostname == "latitude" then
-    terminal     = "xterm"
+    terminal     = "urxvtc"
 else
     terminal     = "alacritty"
 end
