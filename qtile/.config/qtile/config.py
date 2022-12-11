@@ -27,7 +27,7 @@
 import os, re, socket, subprocess
 
 from libqtile import bar, hook, layout, widget
-from libqtile.config import EzClick as Click, EzDrag as Drag, Group, EzKey as Key, Match, Screen
+from libqtile.config import EzClick as Click, EzDrag as Drag, Group, EzKey as Key, Match, ScratchPad, DropDown, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
@@ -74,14 +74,14 @@ keys = [
     Key("<XF86AudioMute>", lazy.spawn("amixer -q set Master toggle")),
     Key("<XF86AudioLowerVolume>", lazy.spawn("amixer -q set Master 5%- unmute")),
     Key("<XF86AudioRaiseVolume>", lazy.spawn("amixer -q set Master 5%+ unmute")),
-    Key("M-<F10>", lazy.spawn(terminal + " -e pulsemixer"), desc="Launch Pulsemixer"),
-    Key("<XF86Calculator>", lazy.spawn("rofi -show -calc -modi calc -no-show-match -no-sort"), desc="Launch Calculator"),
+    #Key("M-<F10>", lazy.spawn(terminal + " -e pulsemixer"), desc="Launch Pulsemixer"),
+    Key("<XF86Calculator>", lazy.spawn("rofi -show calc -modi calc -no-show-match -no-sort"), desc="Launch Calculator"),
     Key("M-<Return>", lazy.spawn(terminal), desc="Launch terminal"),
     # Toggle between different layouts as defined below
     Key("M-<Tab>",   lazy.next_layout(), desc="Toggle between layouts"),
     Key("M-q",       lazy.window.kill(), desc="Kill focused window"),
     Key("M-C-r",     lazy.reload_config(), desc="Reload the config"),
-    Key("M-C-S-A-q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key("M-A-S-C-q", lazy.shutdown(), desc="Shutdown Qtile"),
     #Key("M-r",       lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     Key("M-b",       lazy.spawn(myBrowser), desc="Launch Browser"),
     Key("M-p",       lazy.spawn("brave --incognito"), desc="Launch Private-Brave"),
@@ -120,7 +120,7 @@ colors = [["#282c34", "#282c34"], # color 0
           ["#a3be8c", "#a3be8c"], # color 26 desaturated green
           ["#b48ead", "#b48ead"], # color 27 grayish magenta
           ["#D01515", "#D01515"], # color 28
-          ["#62e31a", "#62e31a"], # color 29 extra3:q
+          ["#62e31a", "#62e31a"], # color 29 extra3
           ["#19b6d6", "#19b6d6"], # color 30 arch blue
          ]
 
@@ -158,6 +158,19 @@ for i in groups:
         ]
     )
 
+# Append scratchpad with dropdowns to groups
+groups.append(ScratchPad('scratchpad', [
+    DropDown('term', terminal, width=0.5, height=0.6, x=0.25, y=0.15, opacity=1),
+    DropDown('ranger', terminal + ' -e ranger', width=0.6, height=0.7, x=0.2, y=0.1, opacity=1),
+    DropDown('mixer', terminal + ' -e pulsemixer', width=0.33,height=0.2, x=0.33, y=0.3, opacity=1),
+]))
+
+# extend keys list with keybinding for scratchpad
+keys.extend([
+    Key("C-1", lazy.group['scratchpad'].dropdown_toggle('term')),
+    Key("C-2", lazy.group['scratchpad'].dropdown_toggle('ranger')),
+    Key("M-<F10>", lazy.group['scratchpad'].dropdown_toggle('mixer')),
+])
 
 layout_theme = {
     "margin": 3,
