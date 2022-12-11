@@ -74,7 +74,8 @@ end
 if hostname == "latitude" then
     run_once({ "urxvtd" }) -- comma-separated entries
 end
-run_once({ "unclutter --root", "/usr/bin/emacs --daemon", "conky" }) -- comma-separated entries
+run_once({ "unclutter --root", "/usr/bin/emacs --daemon", "conky", "udiskie -A -t &" }) -- comma-separated entries
+--run_once({ "unclutter --root", "conky", "udiskie -A -t &" }) -- comma-separated entries
 
 -- This function implements the XDG autostart specification
 --[[
@@ -109,7 +110,9 @@ local altkey       = "Mod1"
 local vi_focus     = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "nvim"
-local browser      = "qutebrowser"
+--local browser      = "qutebrowser"
+local browser      = "brave"
+local filemanager  = "pcmanfm"
 local rofi_theme   = "gruvbox-dark"
 if hostname == "latitude" then
     terminal     = "urxvtc"
@@ -119,7 +122,7 @@ end
 
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "1", "2", "3", "4", "5" }
+awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9"}
 awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
@@ -302,7 +305,7 @@ globalkeys = mytable.join(
 	awful.key({ modkey, altkey }, "w",
 	function()
 		awful.spawn( string.format("rofi -show window -theme %s", rofi_theme) )
-    end,
+	end,
 		{description = "rofi window", group = "rofi"}),
 
 	awful.key({ "Control" }, "ö",
@@ -312,11 +315,18 @@ globalkeys = mytable.join(
 	end,
 		{description = "rofi clipboard", group = "rofi"}),
 
-	awful.key({ modkey }, "p",
+	awful.key({ modkey }, "ä",
 	function()
-		awful.spawn( "rofi-pass" )
+		awful.spawn( "rofi-rbw" )
 	end,
-		{description = "rofi pass", group = "rofi"}),
+		{description = "rofi bitwarden", group = "rofi"}),
+
+	
+	--awful.key({ modkey }, "p",
+	--function()
+	--	awful.spawn( "rofi-pass" )
+	--end,
+	--	{description = "rofi pass", group = "rofi"}),
 
 	awful.key({ modkey }, "x",
 	function()
@@ -341,6 +351,12 @@ globalkeys = mytable.join(
 		awful.spawn( string.format("rofi -show calc -modi calc -no-show-match -no-sort -theme %s", rofi_theme) )
 	end,
 		{description = "calculator", group = "rofi"}),
+	
+    awful.key({ modkey , altkey }, "d",
+	function()
+		awful.spawn( "udiskie-dmenu -matching regex -dmenu -i -no-custom -multi-select" )
+	end,
+		{description = "rofi drive menu", group = "rofi"}),
 
 
     -- other
@@ -362,11 +378,17 @@ globalkeys = mytable.join(
 	end,
 		{description = "Browser", group = "hotkeys"}),
 	
-	awful.key({ modkey }, "ä",
+	awful.key({ modkey }, "p",
 	function()
-		awful.util.spawn( "keepassxc" )
+		awful.util.spawn( "brave --incognito" )
 	end,
-		{description = "keepassxc", group = "hotkeys"}),
+		{description = "Browser (private)", group = "hotkeys"}),
+	
+	--awful.key({ modkey }, "ä",
+	--function()
+	--	awful.util.spawn( "keepassxc" )
+	--end,
+	--	{description = "keepassxc", group = "hotkeys"}),
  
 	awful.key({ modkey }, "F10",
 	function()
@@ -374,6 +396,13 @@ globalkeys = mytable.join(
 	end,
 		{description = "pulsemixer", group = "hotkeys"}),
 
+--[[
+	awful.key({ modkey }, "i",
+	function()
+		awful.util.spawn( "emacsclient --eval '(emacs-everywhere)'")
+	end,
+		{description = "emacs everywhere", group = "hotkeys"}),
+--]]
 
 -- Destroy all notifications
     awful.key({ "Control",           }, "space", function() naughty.destroy_all_notifications() end,

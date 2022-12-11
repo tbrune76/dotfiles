@@ -1,0 +1,4 @@
+export CM_LAUNCHER=rofi
+export UDISKIE_DMENU_LAUNCHER=rofi
+export LANG=de_CH.UTF-8
+export LC_MESSAGES=en_US.UTF-8
