@@ -31,6 +31,9 @@ from libqtile.config import EzClick as Click, EzDrag as Drag, Group, EzKey as Ke
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+from qtile_extras import widget
+from qtile_extras.widget.decorations import BorderDecoration
+
 try:
     from typing import List # noqa: F401
 except ImportError:
@@ -45,24 +48,64 @@ keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
     # Switch between windows
-    Key("M-h", lazy.layout.left(), desc="Move focus to left"),
-    Key("M-l", lazy.layout.right(), desc="Move focus to right"),
-    Key("M-j", lazy.layout.down(), desc="Move focus down"),
-    Key("M-k", lazy.layout.up(), desc="Move focus up"),
+    Key("M-h",
+        lazy.layout.left(),
+        desc="Move focus to left"),
+    Key("M-l",
+        lazy.layout.right(),
+        desc="Move focus to right"),
+    Key("M-j",
+        lazy.layout.down(),
+        desc="Move focus down"),
+    Key("M-k",
+        lazy.layout.up(),
+        desc="Move focus up"),
+
+    Key("M-S-h",
+        lazy.layout.swap_left(),
+        desc="Swap window left"),
+    Key("M-S-l",
+        lazy.layout.swap_right(),
+        desc="Swap window right"),
+    Key("M-S-j",
+        lazy.layout.shuffle_down(),
+        desc="Move window down"),
+    Key("M-S-k",
+        lazy.layout.shuffle_up(),
+        desc="Move window up"),
+
+    Key("M-C-j",
+        lazy.layout.shrink(),
+        desc="Shrink window"),
+    Key("M-C-k",
+        lazy.layout.grow(),
+        desc="Grow window"),
+    #Key("M-C-j", lazy.layout.shrink_main(), desc="Shrink main window"),
+    #Key("M-C-k", lazy.layout.grow_main(), desc="Grow main window"),
+    Key("M-C-h",
+        lazy.layout.reset(),
+        desc="Reset layout"),
+    Key("M-C-l",
+        lazy.layout.normalize(),
+        desc="Normalize layout"),
+    Key("M-C-m",
+        lazy.layout.maximize(),
+        desc="Maximize"),
+
     #Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
-    Key("M-S-h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key("M-S-l", lazy.layout.shuffle_right(), desc="Move window to the right"),
-    Key("M-S-j", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key("M-S-k", lazy.layout.shuffle_up(), desc="Move window up"),
-    # Grow windows. If current window is on the edge of screen and direction
-    # will be to screen edge - window would shrink.
-    Key("M-C-h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key("M-C-l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key("M-C-j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key("M-C-k", lazy.layout.grow_up(), desc="Grow window up"),
-    Key("M-n",   lazy.layout.normalize(), desc="Reset all window sizes"),
+    # Key("M-S-h", lazy.layout.shuffle_left(), desc="Move window to the left"),
+    # Key("M-S-l", lazy.layout.shuffle_right(), desc="Move window to the right"),
+    # Key("M-S-j", lazy.layout.shuffle_down(), desc="Move window down"),
+    # Key("M-S-k", lazy.layout.shuffle_up(), desc="Move window up"),
+    # # Grow windows. If current window is on the edge of screen and direction
+    # # will be to screen edge - window would shrink.
+    # Key("M-C-h", lazy.layout.grow_left(), desc="Grow window to the left"),
+    # Key("M-C-l", lazy.layout.grow_right(), desc="Grow window to the right"),
+    # Key("M-C-j", lazy.layout.grow_down(), desc="Grow window down"),
+    # Key("M-C-k", lazy.layout.grow_up(), desc="Grow window up"),
+    # Key("M-n",   lazy.layout.normalize(), desc="Reset all window sizes"),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
@@ -71,60 +114,143 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    Key("<XF86AudioMute>", lazy.spawn("amixer -q set Master toggle")),
-    Key("<XF86AudioLowerVolume>", lazy.spawn("amixer -q set Master 5%- unmute")),
-    Key("<XF86AudioRaiseVolume>", lazy.spawn("amixer -q set Master 5%+ unmute")),
-    #Key("M-<F10>", lazy.spawn(terminal + " -e pulsemixer"), desc="Launch Pulsemixer"),
-    Key("<XF86Calculator>", lazy.spawn("rofi -show calc -modi calc -no-show-match -no-sort"), desc="Launch Calculator"),
-    Key("M-<Return>", lazy.spawn(terminal), desc="Launch terminal"),
+    Key("<XF86AudioMute>",
+        lazy.spawn("amixer -q set Master toggle"),
+        desc="Toggle Mute"),
+    Key("<XF86AudioLowerVolume>",
+        lazy.spawn("amixer -q set Master 5%- unmute"),
+        desc="Lower Volume"),
+    Key("<XF86AudioRaiseVolume>",
+        lazy.spawn("amixer -q set Master 5%+ unmute"),
+        desc="Raise Volume"),
+    Key("<XF86Calculator>",
+        lazy.spawn("rofi -show calc -modi calc -no-show-match -no-sort"),
+        desc="Launch Calculator"),
+	Key("<Print>",
+        lazy.spawn("flameshot gui -d 3000"),
+        desc="Take Screenshot"),
+    Key("M-<Return>",
+        lazy.spawn(terminal),
+        desc="Launch terminal"),
     # Toggle between different layouts as defined below
-    Key("M-<Tab>",   lazy.next_layout(), desc="Toggle between layouts"),
-    Key("M-q",       lazy.window.kill(), desc="Kill focused window"),
-    Key("M-C-r",     lazy.reload_config(), desc="Reload the config"),
-    Key("M-A-S-C-q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key("M-<Tab>",
+        lazy.next_layout(),
+        desc="Toggle between layouts"),
+    Key("M-q",
+        lazy.window.kill(),
+        desc="Kill focused window"),
+    Key("M-C-r",
+        lazy.reload_config(),
+        desc="Reload the config"),
+    Key("M-A-S-C-q",
+        lazy.shutdown(),
+        desc="Shutdown Qtile"),
+	Key("M-x",
+        lazy.spawn("rofi -show menu -modi 'menu:rofi-power-menu'",
+        desc="Launch Power-Menu")),
     #Key("M-r",       lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-    Key("M-b",       lazy.spawn(myBrowser), desc="Launch Browser"),
-    Key("M-p",       lazy.spawn("brave --incognito"), desc="Launch Private-Brave"),
-    Key("M-e",       lazy.spawn("pcmanfm"), desc="Launch PCManFM"),
-    Key("M-<Space>", lazy.spawn("rofi -show drun"), desc="Launch rofi"),
-    Key("C-<odiaeresis>",       lazy.spawn("clipmenu -i"), desc="Launch Clipboard"),
-    Key("M-<adiaeresis>",       lazy.spawn("rofi-rbw"), desc="Launch Bitwarden Type"),
+    Key("M-b",
+        lazy.spawn(myBrowser),
+        desc="Launch Browser"),
+    Key("M-p",
+        lazy.spawn("brave --incognito"),
+        desc="Launch Private-Brave"),
+    Key("M-d",
+        lazy.spawn("udiskie-dmenu -matching regex -dmenu -i -no-custom -multi-select"),
+        desc="Launch Drive-Menu"),
+    Key("M-e",
+        lazy.spawn("pcmanfm"),
+        desc="Launch PCManFM"),
+    #Key("M-<Space>", lazy.spawn("rofi -show drun"), desc="Launch rofi"),
+    Key("M-<Space>",
+        lazy.spawn("rofi -show combi"),
+        desc="Launch rofi"),
+    Key("C-<odiaeresis>",
+        lazy.spawn("clipmenu -i"),
+        desc="Launch Clipboard"),
+    Key("M-<adiaeresis>",
+        lazy.spawn("rofi-rbw"),
+        desc="Launch Bitwarden Type"),
 ]
 
-colors = [["#282c34", "#282c34"], # color 0
-          ["#1c1f24", "#1c1f24"], # color 1
-          ["#dfdfdf", "#dfdfdf"], # color 2
-          ["#ff6c6b", "#ff6c6b"], # color 3
-          ["#98be65", "#98be65"], # color 4
-          ["#da8548", "#da8548"], # color 5
-          ["#51afef", "#51afef"], # color 6
-          ["#c678dd", "#c678dd"], # color 7
-          ["#46d9ff", "#46d9ff"], # color 8
-          ["#a9a1e1", "#a9a1e1"], # color 9
-          ["#70c0b1", "#70c0b1"], # color 10
-          ["#2e3440", "#2e3440"], # color 11  dark grayish blue
-          ["#2e3440", "#2e3440"], # color 12  dark grayish blue
-          ["#3b4252", "#3b4252"], # color 13  very dark grayish blue
-          ["#434c5e", "#434c5e"], # color 14  very dark grayish blue
-          ["#4c566a", "#4c566a"], # color 15  very dark grayish blue
-          ["#d8dee9", "#d8dee9"], # color 16  grayish blue
-          ["#e5e9f0", "#e5e9f0"], # color 17  light grayish blue
-          ["#eceff4", "#eceff4"], # color 18  light grayish blue
-          ["#8fbcbb", "#8fbcbb"], # color 19  grayish cyan
-          ["#88c0d0", "#88c0d0"], # color 20  desaturated cyan
-          ["#81a1c1", "#81a1c1"], # color 21 desaturated blue
-          ["#5e81ac", "#5e81ac"], # color 22 dark moderate blue
-          ["#bf616a", "#bf616a"], # color 23 slightly desaturated red
-          ["#d08770", "#d08770"], # color 24 desaturated red
-          ["#ebcb8b", "#ebcb8b"], # color 25 soft orange
-          ["#a3be8c", "#a3be8c"], # color 26 desaturated green
-          ["#b48ead", "#b48ead"], # color 27 grayish magenta
-          ["#D01515", "#D01515"], # color 28
-          ["#62e31a", "#62e31a"], # color 29 extra3
-          ["#19b6d6", "#19b6d6"], # color 30 arch blue
-         ]
+#           ["#62e31a", "#62e31a"], # color 29 extra3
+#           ["#19b6d6", "#19b6d6"], # color 30 arch blue
 
+
+highlight_color = ["#62e31a", "#62e31a"] # color 29 extra3
+highlight_floating = ["#D11515", "#D11515"]
 #Groups = [Group(i) for i in "123456789"]
+
+# Colorschemes: Doom-One, Dracula, Nord, Gruvbox, Solarized
+color_scheme = {
+   "doom-one": [["#282c34"],  #  colors[0] - Black (Background)
+                ["#dfdfdf"],  #  colors[1] - White (Foreground)
+                ["#46d9ff"],  #  colors[2] - Cyan
+                ["#51afef"],  #  colors[3] - Blue
+                ["#a9a1e1"],  #  colors[4] - Purple
+                ["#c678dd"],  #  colors[5] - Pink
+                ["#ff6c6b"],  #  colors[6] - Red
+                ["#da8548"],  #  colors[7] - Orange
+                ["#ecbe7b"],  #  colors[8] - Yellow
+                ["#98be65"],  #  colors[9] - Green
+                ["#3e4556"],  # colors[10] - Separator / Border Normal
+                ["#c678dd"]], # colors[11] - Border Focus
+
+    "dracula": [["#282a36"],  #  colors[0] - Black (Background)
+                ["#f8f8f2"],  #  colors[1] - White (Foreground)
+                ["#8be9fd"],  #  colors[2] - Cyan
+                ["#6272a4"],  #  colors[3] - Blue
+                ["#bd93f9"],  #  colors[4] - Purple
+                ["#ff79c6"],  #  colors[5] - Pink
+                ["#ff5555"],  #  colors[6] - Red
+                ["#ffb86c"],  #  colors[7] - Orange
+                ["#f1fa8c"],  #  colors[8] - Yellow
+                ["#50fa7b"],  #  colors[9] - Green
+                ["#44475a"],  # colors[10] - Separator / Border Normal
+                ["#bd93f9"]], # colors[11] - Border Focus
+
+       "nord": [["#2e3440"],  #  colors[0] - Black (Background)
+                ["#e5e9f0"],  #  colors[1] - White (Foreground)
+                ["#88c0d0"],  #  colors[2] - Cyan
+                ["#81a1c1"],  #  colors[3] - Blue
+                ["#b48ead"],  #  colors[4] - Purple
+                ["#8fbcbb"],  #  colors[5] - Teal
+                ["#bf616a"],  #  colors[6] - Red
+                ["#d08770"],  #  colors[7] - Orange
+                ["#ebcb8b"],  #  colors[8] - Yellow
+                ["#a3be8c"],  #  colors[9] - Green
+                ["#4c566a"],  # colors[10] - Separator/ Border Normal
+                ["#88c0d0"]], # colors[11] - Border Focus
+
+    "gruvbox": [["#282828"],  #  colors[0] - Black (Background)
+                ["#ebdbb2"],  #  colors[1] - White (Foreground)
+                ["#689d6a"],  #  colors[2] - Cyan
+                ["#458588"],  #  colors[3] - Blue
+                ["#b16286"],  #  colors[4] - Purple
+                ["#a89984"],  #  colors[5] - Gray
+                ["#cc241d"],  #  colors[6] - Red
+                ["#d65d0e"],  #  colors[7] - Orange
+                ["#d79921"],  #  colors[8] - Yellow
+                ["#98971a"],  #  colors[9] - Green
+                ["#504945"],  # colors[10] - Separator / Border Normal
+                ["#a89984"]], # colors[11] - Border Focus
+
+  "solarized": [["#002b36"],  #  colors[0] - Black (Background)
+                ["#fdf6e3"],  #  colors[1] - White (Foreground)
+                ["#2aa198"],  #  colors[2] - Cyan
+                ["#268bd2"],  #  colors[3] - Blue
+                ["#6c71c4"],  #  colors[4] - Purple
+                ["#d33682"],  #  colors[5] - Pink
+                ["#dc322f"],  #  colors[6] - Red
+                ["#cb4b16"],  #  colors[7] - Orange
+                ["#b58900"],  #  colors[8] - Yellow
+                ["#859900"],  #  colors[9] - Green
+                ["#586e75"],  # colors[10] - Separator / Border Normal
+                ["#2aa198"]], # colors[11] - Border Focus
+}
+
+# Choose the colorscheme here:
+colors = color_scheme["nord"]
 
 groups = [
     Group("1", layout="monadtall"),
@@ -160,30 +286,51 @@ for i in groups:
 
 # Append scratchpad with dropdowns to groups
 groups.append(ScratchPad('scratchpad', [
-    DropDown('term', terminal, width=0.5, height=0.6, x=0.25, y=0.15, opacity=1),
-    DropDown('ranger', terminal + ' -e ranger', width=0.6, height=0.7, x=0.2, y=0.1, opacity=1),
-    DropDown('mixer', terminal + ' -e pulsemixer', width=0.33,height=0.2, x=0.33, y=0.3, opacity=1),
+    DropDown('term',
+             terminal,
+             width=0.5,
+             height=0.6,
+             x=0.25,
+             y=0.15,
+             opacity=1),
+    DropDown('ranger',
+             terminal + ' -e ranger',
+             width=0.6,
+             height=0.7,
+             x=0.2,
+             y=0.1,
+             opacity=1),
+    DropDown('mixer',
+             terminal + ' -e pulsemixer',
+             width=0.33,
+             height=0.2,
+             x=0.33,
+             y=0.3,
+             opacity=1),
 ]))
 
 # extend keys list with keybinding for scratchpad
 keys.extend([
-    Key("C-1", lazy.group['scratchpad'].dropdown_toggle('term')),
-    Key("C-2", lazy.group['scratchpad'].dropdown_toggle('ranger')),
-    Key("M-<F10>", lazy.group['scratchpad'].dropdown_toggle('mixer')),
+    Key("C-1",
+        lazy.group['scratchpad'].dropdown_toggle('term')),
+    Key("C-2",
+        lazy.group['scratchpad'].dropdown_toggle('ranger')),
+    Key("M-<F10>",
+        lazy.group['scratchpad'].dropdown_toggle('mixer')),
 ])
 
 layout_theme = {
     "margin": 3,
     "border_width": 2,
-    "border_focus": colors[29],
-    "border_normal": "#606060",
+    "border_focus": highlight_color,
+    "border_normal": colors[10],
 }
 
 floating_theme = {
     "margin": 3,
-    "border_width": 4,
-    "border_focus": colors[28],
-    "border_normal": "#606060",
+    "border_width": 3,
+    "border_focus": highlight_floating,
+    "border_normal": colors[10],
 }
 
 layouts = [
@@ -194,6 +341,7 @@ layouts = [
     # layout.Bsp(),
     layout.Matrix(**layout_theme),
     layout.MonadTall(**layout_theme),
+    layout.MonadThreeCol(**layout_theme),
     layout.MonadWide(**layout_theme),
     # layout.RatioTile(),
     layout.Tile(**layout_theme),
@@ -203,8 +351,12 @@ layouts = [
 ]
 
 widget_defaults = dict(
+    #font="Hurmit Nerd Font Mono SemiBold",
+    #font="mononoki Nerd Font Mono SemiBold",
+    #font="Hack Nerd Font Mono",
+    #font="FuraMono Nerd Font Mono",
     font="BlexMono Nerd Font Mono SemiBold",
-    fontsize=11,
+    fontsize=12,
     padding=5,
     background = colors[0],
 )
@@ -235,15 +387,14 @@ screens = [
                 #    padding = 5,
                 #),
                 widget.GroupBox(
-                    foreground = colors[2],
+                    #active = colors[2],
+                    #inactive = colors[1],
                     padding = 1,
                     font = 'BlexMono Nerd Font Mono',
                     highlight_method = 'line',
+                    #highlight_color = colors[10],
                     borderwidth = 2,
-                    this_current_screen_border = colors[29],
-                    urgent_alert_method = 'line',
-                    urgent_border = colors[28],
-
+                    this_current_screen_border = highlight_color,
                 ),
                 #widget.Prompt(
                 #),
@@ -255,7 +406,7 @@ screens = [
                     font = 'BlexMono Nerd Font Mono',
                     icon_size = 0,
                     #highlight_method = 'block',
-                    border = colors[29],
+                    border = highlight_color,
                 ),
                 widget.Chord(
                     chords_colors={
@@ -269,32 +420,80 @@ screens = [
                 #),
                 widget.Net(
                     interface = "all",
-                    format = '↓ {down} ↑ {up}',
-                    foreground = colors[3],
+                    format = ' {down} ↑↓ {up}',
+                    foreground = colors[9],
+                    decorations= [
+                        BorderDecoration(
+                            colour = colors[9],
+                            border_width = [0, 0, 2, 0],
+                            padding_x = 5,
+                            padding_y = None,
+                        )
+                    ],
                 ),
                 widget.Volume(
-                    fmt = 'Vol: {}',
-                    foreground = colors[7],
+                    fmt = ' {}',
+                    foreground = colors[3],
+                    decorations= [
+                        BorderDecoration(
+                            colour = colors[3],
+                            border_width = [0, 0, 2, 0],
+                            padding_x = 5,
+                            padding_y = None,
+                        )
+                    ],
                 ),
                 widget.CheckUpdates(
                     distro = "Arch_yay",
-                    display_format = "U: ({updates})",
+                    display_format = " {updates}",
                     colour_no_updates = colors[4],
-                    colour_have_updates = colors[3],
+                    colour_have_updates = colors[6],
+                    decorations= [
+                        BorderDecoration(
+                            colour = colors[6],
+                            border_width = [0, 0, 2, 0],
+                            padding_x = 5,
+                            padding_y = None,
+                        )
+                    ],
                 ),
                 widget.Memory(
-                    foreground = colors[5],
-                    format = '{MemUsed: .0f}{mm}/{MemTotal: .0f}{mm}',
+                    foreground = colors[7],
+                    format = ' {MemUsed: .0f}{mm}/{MemTotal: .0f}{mm}',
+                    decorations= [
+                        BorderDecoration(
+                            colour = colors[7],
+                            border_width = [0, 0, 2, 0],
+                            padding_x = 5,
+                            padding_y = None,
+                        )
+                    ],
                 ),
                 widget.CPU(
-                    foreground = colors[9],
-                    format = 'CPU: {load_percent}%',
+                    foreground = colors[5],
+                    format = ' {load_percent}%',
                     mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e htop')},
+                    decorations= [
+                        BorderDecoration(
+                            colour = colors[5],
+                            border_width = [0, 0, 2, 0],
+                            padding_x = 5,
+                            padding_y = None,
+                        )
+                    ],
                 ),
                 widget.ThermalSensor(
                     threshold = 90,
-                    #fmt = 'Temp: {}',
-                    foreground = colors[4],
+                    format = ' {temp:.1f}{unit}',
+                    foreground = colors[8],
+                    decorations= [
+                        BorderDecoration(
+                            colour = colors[8],
+                            border_width = [0, 0, 2, 0],
+                            padding_x = 5,
+                            padding_y = None,
+                        )
+                    ],
                 ),
                 # widget.Battery(
                 #    foreground = colors[5],
@@ -310,14 +509,29 @@ screens = [
                 # widget.TextBox("default config", name="default"),
                 # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                # widget.StatusNotifier(),
                 widget.Clock(
                     format="%a %d.%m.%Y (%W)",
-                    foreground = colors[6],
+                    foreground = colors[3],
+                    decorations= [
+                        BorderDecoration(
+                            colour = colors[3],
+                            border_width = [0, 0, 2, 0],
+                            padding_x = 5,
+                            padding_y = None,
+                        )
+                    ],
                 ),
                 widget.Clock(
                     format="%H:%M:%S",
-                    foreground = colors[25],
+                    foreground = colors[7],
+                    decorations= [
+                        BorderDecoration(
+                            colour = colors[7],
+                            border_width = [0, 0, 2, 0],
+                            padding_x = 5,
+                            padding_y = None,
+                        )
+                    ],
                 ),
                 # widget.QuickExit(),
             ],
@@ -325,8 +539,6 @@ screens = [
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
-        #wallpaper = '/usr/share/backgrounds/arch-logo-dark/ALDark1.png',
-        #wallpaper_mode = 'none',
     ),
 ]
 
