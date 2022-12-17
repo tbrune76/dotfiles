@@ -178,75 +178,75 @@ keys = [
 
 
 highlight_color = ["#62e31a", "#62e31a"] # color 29 extra3
-highlight_floating = ["#D11515", "#D11515"]
+highlight_floating = ["#D01515", "#D01515"]
 #Groups = [Group(i) for i in "123456789"]
 
 # Colorschemes: Doom-One, Dracula, Nord, Gruvbox, Solarized
 color_scheme = {
-   "doom-one": [["#282c34"],  #  colors[0] - Black (Background)
-                ["#dfdfdf"],  #  colors[1] - White (Foreground)
-                ["#46d9ff"],  #  colors[2] - Cyan
-                ["#51afef"],  #  colors[3] - Blue
-                ["#a9a1e1"],  #  colors[4] - Purple
-                ["#c678dd"],  #  colors[5] - Pink
-                ["#ff6c6b"],  #  colors[6] - Red
-                ["#da8548"],  #  colors[7] - Orange
-                ["#ecbe7b"],  #  colors[8] - Yellow
-                ["#98be65"],  #  colors[9] - Green
-                ["#3e4556"],  # colors[10] - Separator / Border Normal
-                ["#c678dd"]], # colors[11] - Border Focus
+   "doom-one": [["#282c34", "#282c34"],  #  colors[0] - Black (Background)
+                ["#dfdfdf", "#dfdfdf"],  #  colors[1] - White (Foreground)
+                ["#46d9ff", "#46d9ff"],  #  colors[2] - Cyan
+                ["#51afef", "#51afef"],  #  colors[3] - Blue
+                ["#a9a1e1", "#a9a1e1"],  #  colors[4] - Purple
+                ["#c678dd", "#c678dd"],  #  colors[5] - Pink
+                ["#ff6c6b", "#ff6c6b"],  #  colors[6] - Red
+                ["#da8548", "#da8548"],  #  colors[7] - Orange
+                ["#ecbe7b", "#ecbe7b"],  #  colors[8] - Yellow
+                ["#98be65", "#98be65"],  #  colors[9] - Green
+                ["#3e4556", "#3e4556"],  # colors[10] - Separator / Border Normal
+                ["#c678dd", "#c678dd"]], # colors[11] - Border Focus
 
-    "dracula": [["#282a36"],  #  colors[0] - Black (Background)
-                ["#f8f8f2"],  #  colors[1] - White (Foreground)
-                ["#8be9fd"],  #  colors[2] - Cyan
-                ["#6272a4"],  #  colors[3] - Blue
-                ["#bd93f9"],  #  colors[4] - Purple
-                ["#ff79c6"],  #  colors[5] - Pink
-                ["#ff5555"],  #  colors[6] - Red
-                ["#ffb86c"],  #  colors[7] - Orange
-                ["#f1fa8c"],  #  colors[8] - Yellow
-                ["#50fa7b"],  #  colors[9] - Green
-                ["#44475a"],  # colors[10] - Separator / Border Normal
-                ["#bd93f9"]], # colors[11] - Border Focus
+    "dracula": [["#282a36", "#282a36"],  #  colors[0] - Black (Background)
+                ["#f8f8f2", "#f8f8f2"],  #  colors[1] - White (Foreground)
+                ["#8be9fd", "#8be9fd"],  #  colors[2] - Cyan
+                ["#6272a4", "#6272a4"],  #  colors[3] - Blue
+                ["#bd93f9", "#bd93f9"],  #  colors[4] - Purple
+                ["#ff79c6", "#ff79c6"],  #  colors[5] - Pink
+                ["#ff5555", "#ff5555"],  #  colors[6] - Red
+                ["#ffb86c", "#ffb86c"],  #  colors[7] - Orange
+                ["#f1fa8c", "#f1fa8c"],  #  colors[8] - Yellow
+                ["#50fa7b", "#50fa7b"],  #  colors[9] - Green
+                ["#44475a", "#44475a"],  # colors[10] - Separator / Border Normal
+                ["#bd93f9", "#bd93f9"]], # colors[11] - Border Focus
 
-       "nord": [["#2e3440"],  #  colors[0] - Black (Background)
-                ["#e5e9f0"],  #  colors[1] - White (Foreground)
-                ["#88c0d0"],  #  colors[2] - Cyan
-                ["#81a1c1"],  #  colors[3] - Blue
-                ["#b48ead"],  #  colors[4] - Purple
-                ["#8fbcbb"],  #  colors[5] - Teal
-                ["#bf616a"],  #  colors[6] - Red
-                ["#d08770"],  #  colors[7] - Orange
-                ["#ebcb8b"],  #  colors[8] - Yellow
-                ["#a3be8c"],  #  colors[9] - Green
-                ["#4c566a"],  # colors[10] - Separator/ Border Normal
-                ["#88c0d0"]], # colors[11] - Border Focus
+       "nord": [["#2e3440", "#2e3440"],  #  colors[0] - Black (Background)
+                ["#e5e9f0", "#e5e9f0"],  #  colors[1] - White (Foreground)
+                ["#88c0d0", "#88c0d0"],  #  colors[2] - Cyan
+                ["#81a1c1", "#81a1c1"],  #  colors[3] - Blue
+                ["#b48ead", "#b48ead"],  #  colors[4] - Purple
+                ["#8fbcbb", "#8fbcbb"],  #  colors[5] - Teal
+                ["#bf616a", "#bf616a"],  #  colors[6] - Red
+                ["#d08770", "#d08770"],  #  colors[7] - Orange
+                ["#ebcb8b", "#ebcb8b"],  #  colors[8] - Yellow
+                ["#a3be8c", "#a3be8c"],  #  colors[9] - Green
+                ["#4c566a", "#4c566a"],  # colors[10] - Separator/ Border Normal
+                ["#88c0d0", "#88c0d0"]], # colors[11] - Border Focus
 
-    "gruvbox": [["#282828"],  #  colors[0] - Black (Background)
-                ["#ebdbb2"],  #  colors[1] - White (Foreground)
-                ["#689d6a"],  #  colors[2] - Cyan
-                ["#458588"],  #  colors[3] - Blue
-                ["#b16286"],  #  colors[4] - Purple
-                ["#a89984"],  #  colors[5] - Gray
-                ["#cc241d"],  #  colors[6] - Red
-                ["#d65d0e"],  #  colors[7] - Orange
-                ["#d79921"],  #  colors[8] - Yellow
-                ["#98971a"],  #  colors[9] - Green
-                ["#504945"],  # colors[10] - Separator / Border Normal
-                ["#a89984"]], # colors[11] - Border Focus
+    "gruvbox": [["#282828", "#282828"],  #  colors[0] - Black (Background)
+                ["#ebdbb2", "#ebdbb2"],  #  colors[1] - White (Foreground)
+                ["#689d6a", "#689d6a"],  #  colors[2] - Cyan
+                ["#458588", "#458588"],  #  colors[3] - Blue
+                ["#b16286", "#b16286"],  #  colors[4] - Purple
+                ["#a89984", "#a89984"],  #  colors[5] - Gray
+                ["#cc241d", "#cc241d"],  #  colors[6] - Red
+                ["#d65d0e", "#d65d0e"],  #  colors[7] - Orange
+                ["#d79921", "#d79921"],  #  colors[8] - Yellow
+                ["#98971a", "#98971a"],  #  colors[9] - Green
+                ["#504945", "#504945"],  # colors[10] - Separator / Border Normal
+                ["#a89984", "#a89984"]], # colors[11] - Border Focus
 
-  "solarized": [["#002b36"],  #  colors[0] - Black (Background)
-                ["#fdf6e3"],  #  colors[1] - White (Foreground)
-                ["#2aa198"],  #  colors[2] - Cyan
-                ["#268bd2"],  #  colors[3] - Blue
-                ["#6c71c4"],  #  colors[4] - Purple
-                ["#d33682"],  #  colors[5] - Pink
-                ["#dc322f"],  #  colors[6] - Red
-                ["#cb4b16"],  #  colors[7] - Orange
-                ["#b58900"],  #  colors[8] - Yellow
-                ["#859900"],  #  colors[9] - Green
-                ["#586e75"],  # colors[10] - Separator / Border Normal
-                ["#2aa198"]], # colors[11] - Border Focus
+  "solarized": [["#002b36", "#002b36"],  #  colors[0] - Black (Background)
+                ["#fdf6e3", "#fdf6e3"],  #  colors[1] - White (Foreground)
+                ["#2aa198", "#2aa198"],  #  colors[2] - Cyan
+                ["#268bd2", "#268bd2"],  #  colors[3] - Blue
+                ["#6c71c4", "#6c71c4"],  #  colors[4] - Purple
+                ["#d33682", "#d33682"],  #  colors[5] - Pink
+                ["#dc322f", "#dc322f"],  #  colors[6] - Red
+                ["#cb4b16", "#cb4b16"],  #  colors[7] - Orange
+                ["#b58900", "#b58900"],  #  colors[8] - Yellow
+                ["#859900", "#859900"],  #  colors[9] - Green
+                ["#586e75", "#586e75"],  # colors[10] - Separator / Border Normal
+                ["#2aa198", "#2aa198"]], # colors[11] - Border Focus
 }
 
 # Choose the colorscheme here:
@@ -458,11 +458,11 @@ screens = [
                     ],
                 ),
                 widget.Memory(
-                    foreground = colors[7],
+                    foreground = colors[5],
                     format = ' {MemUsed: .0f}{mm}/{MemTotal: .0f}{mm}',
                     decorations= [
                         BorderDecoration(
-                            colour = colors[7],
+                            colour = colors[5],
                             border_width = [0, 0, 2, 0],
                             padding_x = 5,
                             padding_y = None,
@@ -470,12 +470,12 @@ screens = [
                     ],
                 ),
                 widget.CPU(
-                    foreground = colors[5],
+                    foreground = colors[7],
                     format = ' {load_percent}%',
                     mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e htop')},
                     decorations= [
                         BorderDecoration(
-                            colour = colors[5],
+                            colour = colors[7],
                             border_width = [0, 0, 2, 0],
                             padding_x = 5,
                             padding_y = None,
