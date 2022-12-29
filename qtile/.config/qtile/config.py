@@ -162,6 +162,7 @@ keys = [
 
 
 highlight_color = ["#62e31a", "#62e31a"]   # color 29 extra3
+# highlight_color = ["#fe8019", "#fe8019"]
 highlight_floating = ["#D01515", "#D01515"]
 # Groups = [Group(i) for i in "123456789"]
 
@@ -234,7 +235,7 @@ color_scheme = {
 }
 
 # Choose the colorscheme here:
-colors = color_scheme["nord"]
+colors = color_scheme["gruvbox"]
 
 groups = [
     Group("1", layout="monadtall"),
@@ -350,10 +351,10 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.WindowCount(
-                    show_zero=True,
-                    max_chars=2,
-                ),
+                # widget.WindowCount(
+                #     show_zero=True,
+                #     max_chars=2,
+                # ),
                 widget.CurrentLayoutIcon(
                     custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
                     foreground=colors[2],
@@ -427,7 +428,9 @@ screens = [
                 # ),
                 widget.Memory(
                     foreground=colors[5],
-                    format=' {MemUsed: .0f}{mm}/{MemTotal: .0f}{mm}',
+                    format=' {MemUsed: .1f}{mm}/{MemTotal: .1f}{mm}',
+                    measure_mem="G",
+                    mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(terminal + ' -e htop')},
                     decorations=[
                         BorderDecoration(
                             colour=colors[5],
@@ -484,6 +487,7 @@ screens = [
                 widget.Clock(
                     format="%a %d.%m.%Y (%W)",
                     foreground=colors[3],
+                    update_interval=3600,
                     decorations=[
                         BorderDecoration(
                             colour=colors[3],
