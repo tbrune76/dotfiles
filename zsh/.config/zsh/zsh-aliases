@@ -8,9 +8,9 @@ which lazygit > /dev/null && alias g='lazygit'
 #alias vimlua='${EDITOR} ~/.config/nvim/init.lua'
 alias zshconfig='${EDITOR} ~/.zshrc'
 
-alias v='nvim'
-alias vi='nvim'
-alias vim='nvim'
+alias v='lvim'
+alias vi='lvim'
+alias vim='lvim'
 
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'
