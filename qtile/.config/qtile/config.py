@@ -41,11 +41,14 @@ from libqtile.utils import guess_terminal
 from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
 
+from libqtile.backend.wayland.inputs import InputConfig
+
 try:
     from typing import List  # noqa: F401
 except ImportError:
     pass
 
+IS_WAYLAND: bool = qtile.core.name == "wayland"
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -118,11 +121,10 @@ keys = [
     Key("M-<adiaeresis>", lazy.spawn("rofi-rbw"), desc="Launch Bitwarden Type"),
 ]
 
-#           ["#62e31a", "#62e31a"], # color 29 extra3
-#           ["#19b6d6", "#19b6d6"], # color 30 arch blue
+#           ["#19b6d6", "#19b6d6"], # arch blue
 
 
-highlight_color = ["#62e31a", "#62e31a"]  # color 29 extra3
+highlight_color = ["#62e31a", "#62e31a"]  #  extra3
 # highlight_color = ["#fe8019", "#fe8019"]
 highlight_floating = ["#D01515", "#D01515"]
 # Groups = [Group(i) for i in "123456789"]
@@ -297,12 +299,12 @@ layouts = [
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
-    layout.Matrix(**layout_theme),
+    # layout.Matrix(**layout_theme),
     layout.MonadTall(**layout_theme),
     layout.MonadThreeCol(**layout_theme),
     layout.MonadWide(**layout_theme),
     # layout.RatioTile(),
-    layout.Tile(**layout_theme),
+    # layout.Tile(**layout_theme),
     # layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
@@ -320,173 +322,178 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+currentlayout = widget.CurrentLayoutIcon(
+        custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
+        foreground=colors[2],
+        padding=1,
+        scale=0.75,
+        )
+
+
+groupbox = widget.GroupBox(
+        padding=1,
+        font="BlexMono Nerd Font Mono",
+        highlight_method="line",
+        borderwidth=2,
+        this_current_screen_border=highlight_color,
+        disable_drag=True,
+        )
+
+tasklist = widget.TaskList(
+        font="BlexMono Nerd Font Mono",
+        icon_size=0,
+        border=highlight_color,
+        )
+
+chord = widget.Chord(
+        chords_colors={
+            "launch": ("#ff0000", "#ffffff"),
+            },
+        name_transform=lambda name: name.upper(),
+        )
+
+if IS_WAYLAND:
+    systray = widget.StatusNotifier()
+else:
+    systray = widget.Systray()
+
+network = widget.Net(
+        interface="all",
+        format=" {down} ↑↓ {up}",
+        foreground=colors[9],
+        decorations=[
+            BorderDecoration(
+                colour=colors[9],
+                border_width=[0, 0, 2, 0],
+                padding_x=5,
+                padding_y=None,
+                )
+            ],
+        )
+
+volume = widget.Volume(
+        fmt=" {}",
+        foreground=colors[3],
+        decorations=[
+            BorderDecoration(
+                colour=colors[3],
+                border_width=[0, 0, 2, 0],
+                padding_x=5,
+                padding_y=None,
+                )
+            ],
+        )
+
+memory = widget.Memory(
+        foreground=colors[5],
+        format=" {MemUsed: .1f}{mm}/{MemTotal: .1f}{mm}",
+        measure_mem="G",
+        mouse_callbacks={
+            "Button1": lambda: qtile.cmd_spawn(terminal + " -e htop")
+            },
+        decorations=[
+            BorderDecoration(
+                colour=colors[5],
+                border_width=[0, 0, 2, 0],
+                padding_x=5,
+                padding_y=None,
+                )
+            ],
+        )
+
+cpu = widget.CPU(
+        foreground=colors[7],
+        format=" {load_percent}%",
+        mouse_callbacks={
+            "Button1": lambda: qtile.cmd_spawn(terminal + " -e htop")
+            },
+        decorations=[
+            BorderDecoration(
+                colour=colors[7],
+                border_width=[0, 0, 2, 0],
+                padding_x=5,
+                padding_y=None,
+                )
+            ],
+        )
+
+thermals = widget.ThermalSensor(
+        threshold=90,
+        format=" {temp:.1f}{unit}",
+        foreground=colors[8],
+        decorations=[
+            BorderDecoration(
+                colour=colors[8],
+                border_width=[0, 0, 2, 0],
+                padding_x=5,
+                padding_y=None,
+                )
+            ],
+        )
+
+updatecheck = widget.CheckUpdates(
+        distro="Arch_yay",
+        display_format=" {updates}",
+        colour_no_updates=colors[4],
+        colour_have_updates=colors[6],
+        mouse_callbacks={
+            "Button1": lambda: qtile.cmd_spawn(terminal + " -e yay -Suy")
+            },
+        decorations=[
+            BorderDecoration(
+                colour=colors[6],
+                border_width=[0, 0, 2, 0],
+                padding_x=5,
+                padding_y=None,
+                )
+            ],
+        )
+
+calendar = widget.Clock(
+        format="%a %d.%m.%Y (%W)",
+        foreground=colors[3],
+        update_interval=3600,
+        decorations=[
+            BorderDecoration(
+                colour=colors[3],
+                border_width=[0, 0, 2, 0],
+                padding_x=5,
+                padding_y=None,
+                )
+            ],
+        )
+
+clock = widget.Clock(
+        format="%H:%M:%S",
+        foreground=colors[7],
+        decorations=[
+            BorderDecoration(
+                colour=colors[7],
+                border_width=[0, 0, 2, 0],
+                padding_x=5,
+                padding_y=None,
+                )
+            ],
+        )
+
+
 screens = [
     Screen(
         top=bar.Bar(
             [
-                # widget.WindowCount(
-                #     show_zero=True,
-                #     max_chars=2,
-                # ),
-                widget.CurrentLayoutIcon(
-                    custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
-                    foreground=colors[2],
-                    padding=1,
-                    scale=0.75,
-                ),
-                # widget.CurrentLayout(
-                #    foreground=colors[2],
-                #    background=colors[0],
-                #    padding=5,
-                # ),
-                widget.GroupBox(
-                    padding=1,
-                    font="BlexMono Nerd Font Mono",
-                    highlight_method="line",
-                    borderwidth=2,
-                    this_current_screen_border=highlight_color,
-                ),
-                # widget.Prompt(
-                # ),
-                widget.TaskList(
-                    font="BlexMono Nerd Font Mono",
-                    icon_size=0,
-                    border=highlight_color,
-                ),
-                widget.Chord(
-                    chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
-                widget.Systray(),
-                # widget.StatusNotifier(
-                # ),
-                widget.Net(
-                    interface="all",
-                    format=" {down} ↑↓ {up}",
-                    foreground=colors[9],
-                    decorations=[
-                        BorderDecoration(
-                            colour=colors[9],
-                            border_width=[0, 0, 2, 0],
-                            padding_x=5,
-                            padding_y=None,
-                        )
-                    ],
-                ),
-                widget.Volume(
-                    fmt=" {}",
-                    foreground=colors[3],
-                    decorations=[
-                        BorderDecoration(
-                            colour=colors[3],
-                            border_width=[0, 0, 2, 0],
-                            padding_x=5,
-                            padding_y=None,
-                        )
-                    ],
-                ),
-                # widget.Battery(
-                #    foreground=colors[5],
-                #    charge_char='',
-                #    discharge_char='v',
-                #    empty_char='',
-                #    full_char='',
-                #    unknown_char='?',
-                #    format='{char} {percent:2.0%} {hour:d}:{min:02d} {watt:.2f}W',
-                #    padding=5,
-                #    update_interval=60,
-                # ),
-                widget.Memory(
-                    foreground=colors[5],
-                    format=" {MemUsed: .1f}{mm}/{MemTotal: .1f}{mm}",
-                    measure_mem="G",
-                    mouse_callbacks={
-                        "Button1": lambda: qtile.cmd_spawn(terminal + " -e htop")
-                    },
-                    decorations=[
-                        BorderDecoration(
-                            colour=colors[5],
-                            border_width=[0, 0, 2, 0],
-                            padding_x=5,
-                            padding_y=None,
-                        )
-                    ],
-                ),
-                widget.CPU(
-                    foreground=colors[7],
-                    format=" {load_percent}%",
-                    mouse_callbacks={
-                        "Button1": lambda: qtile.cmd_spawn(terminal + " -e htop")
-                    },
-                    decorations=[
-                        BorderDecoration(
-                            colour=colors[7],
-                            border_width=[0, 0, 2, 0],
-                            padding_x=5,
-                            padding_y=None,
-                        )
-                    ],
-                ),
-                widget.ThermalSensor(
-                    threshold=90,
-                    format=" {temp:.1f}{unit}",
-                    foreground=colors[8],
-                    decorations=[
-                        BorderDecoration(
-                            colour=colors[8],
-                            border_width=[0, 0, 2, 0],
-                            padding_x=5,
-                            padding_y=None,
-                        )
-                    ],
-                ),
-                # widget.TextBox("default config", name="default"),
-                # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-                # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                widget.CheckUpdates(
-                    distro="Arch_yay",
-                    display_format=" {updates}",
-                    colour_no_updates=colors[4],
-                    colour_have_updates=colors[6],
-                    mouse_callbacks={
-                        "Button1": lambda: qtile.cmd_spawn(terminal + " -e yay -Suy")
-                    },
-                    decorations=[
-                        BorderDecoration(
-                            colour=colors[6],
-                            border_width=[0, 0, 2, 0],
-                            padding_x=5,
-                            padding_y=None,
-                        )
-                    ],
-                ),
-                widget.Clock(
-                    format="%a %d.%m.%Y (%W)",
-                    foreground=colors[3],
-                    update_interval=3600,
-                    decorations=[
-                        BorderDecoration(
-                            colour=colors[3],
-                            border_width=[0, 0, 2, 0],
-                            padding_x=5,
-                            padding_y=None,
-                        )
-                    ],
-                ),
-                widget.Clock(
-                    format="%H:%M:%S",
-                    foreground=colors[7],
-                    decorations=[
-                        BorderDecoration(
-                            colour=colors[7],
-                            border_width=[0, 0, 2, 0],
-                            padding_x=5,
-                            padding_y=None,
-                        )
-                    ],
-                ),
+                currentlayout,
+                groupbox,
+                tasklist,
+                chord,
+                systray,
+                network,
+                volume,
+                memory,
+                cpu,
+                thermals,
+                updatecheck,
+                calendar,
+                clock
             ],
             24,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
@@ -530,7 +537,10 @@ reconfigure_screens = True
 @hook.subscribe.startup_once
 def start_once():
     home = os.path.expanduser("~")
-    subprocess.call([home + "/.config/qtile/autostart.sh"])
+    if IS_WAYLAND:
+        subprocess.call([home + "/.config/qtile/autostart_wayland.sh"])
+    else:
+        subprocess.call([home + "/.config/qtile/autostart.sh"])
 
 
 # If things like steam games want to auto-minimize themselves when losing
@@ -538,7 +548,11 @@ def start_once():
 auto_minimize = True
 
 # When using the Wayland backend, this can be used to configure input devices.
-wl_input_rules = None
+wl_input_rules = {
+        "type:keyboard": InputConfig(
+            kb_layout = "de"
+            )
+        } 
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the

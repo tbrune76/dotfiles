@@ -7,4 +7,4 @@ nm-applet &
 udiskie -A -t &
 clipmenud &
 /usr/bin/lxqt-policykit-agent &
-/usr/bin/emacs --daemon
+#/usr/bin/emacs --daemon

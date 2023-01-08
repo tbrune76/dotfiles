@@ -194,31 +194,20 @@ formatters.setup {
 --     },
 -- }
 lvim.plugins = {
-  {
-    "sainnhe/gruvbox-material"
-  },
-  {
-    "mbbill/undotree"
-  },
+  { "sainnhe/gruvbox-material" },
+  { "mbbill/undotree" },
   {
     "norcalli/nvim-colorizer.lua",
     config = function()
       require("colorizer").setup()
     end,
   },
-  {
-    "p00f/nvim-ts-rainbow"
-  },
+  { "p00f/nvim-ts-rainbow" },
   {
     "windwp/nvim-ts-autotag",
     config = function()
       require("nvim-ts-autotag").setup()
     end,
-  },
-  {
-    "nvim-telescope/telescope-fzy-native.nvim",
-    run = "make",
-    event = "BufRead",
   },
   {
     "folke/todo-comments.nvim",
@@ -227,8 +216,29 @@ lvim.plugins = {
       require("todo-comments").setup()
     end,
   },
+  { "folke/zen-mode.nvim" },
   {
-    "folke/zen-mode.nvim"
+    "f-person/git-blame.nvim",
+    event = "BufRead",
+    config = function()
+      vim.cmd "highlight default link gitblame SpecialComment"
+      vim.g.gitblame_enabled = 0
+    end,
+  },
+  { "tpope/vim-repeat" },
+  {
+    "tpope/vim-surround",
+    -- make sure to change the value of `timeoutlen` if it's not triggering correctly, see https://github.com/tpope/vim-surround/issues/117
+    -- setup = function()
+    --  vim.o.timeoutlen = 500
+    -- end
+  },
+  {
+    "nvim-telescope/telescope-project.nvim",
+    event = "BufWinEnter",
+    setup = function()
+      vim.cmd [[packadd telescope.nvim]]
+    end,
   },
 }
 
@@ -238,14 +248,13 @@ lvim.plugins = {
 --   -- enable wrap mode for json files only
 --   command = "setlocal wrap",
 -- })
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "zsh",
---   callback = function()
---     -- let treesitter use bash highlight for zsh files as well
--- l
--- require("nvim-treesitter.highlight").attach(0, "bash")
---   end,
--- })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "zsh",
+  callback = function()
+    -- let treesitter use bash highlight for zsh files as well
+    require("nvim-treesitter.highlight").attach(0, "bash")
+  end,
+})
 
 lvim.builtin.treesitter.rainbow.enable = true
 
