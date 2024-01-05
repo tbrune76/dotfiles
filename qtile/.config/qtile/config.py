@@ -26,8 +26,8 @@
 # SOFTWARE.
 
 import os
-import re
-import socket
+#import re
+#import socket
 import subprocess
 
 from libqtile import bar, hook, layout, qtile, widget
@@ -41,7 +41,10 @@ from libqtile.utils import guess_terminal
 from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
 
-from libqtile.backend.wayland.inputs import InputConfig
+try:
+    from libqtile.backend.wayland.inputs import InputConfig
+except ImportError:
+    pass
 
 try:
     from typing import List  # noqa: F401
@@ -52,7 +55,9 @@ IS_WAYLAND: bool = qtile.core.name == "wayland"
 
 mod = "mod4"
 terminal = guess_terminal()
-myBrowser = "brave"
+#myBrowser = "brave"
+#myBrowser = "chromium"
+myBrowser = "thorium-browser"
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -109,7 +114,7 @@ keys = [
     ),
     # Key("M-r",       lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     Key("M-b", lazy.spawn(myBrowser), desc="Launch Browser"),
-    Key("M-p", lazy.spawn("brave --incognito"), desc="Launch Private-Brave"),
+    Key("M-p", lazy.spawn(myBrowser + " --incognito"), desc="Launch Private-Session"),
     Key(
         "M-d",
         lazy.spawn("udiskie-dmenu -matching regex -dmenu -i -no-custom -multi-select"),
@@ -117,8 +122,9 @@ keys = [
     ),
     Key("M-e", lazy.spawn("pcmanfm"), desc="Launch PCManFM"),
     Key("M-<Space>", lazy.spawn("rofi -show combi"), desc="Launch rofi"),
-    Key("C-<odiaeresis>", lazy.spawn("clipmenu -i"), desc="Launch Clipboard"),
-    Key("M-<adiaeresis>", lazy.spawn("rofi-rbw"), desc="Launch Bitwarden Type"),
+    #Key("C-<odiaeresis>", lazy.spawn("clipmenu -i"), desc="Launch Clipboard"),
+    Key("C-<odiaeresis>", lazy.spawn("rofi -modi 'clipboard::greenclip print' -show clipboard -run-command '{cmd}'"), desc="Launch Clipboard"),
+    Key("M-A-S-C-j", lazy.spawn("/home/timo/.local/bin/dly"), desc="dly Quicknote"),
 ]
 
 #           ["#19b6d6", "#19b6d6"], # arch blue
@@ -504,15 +510,17 @@ screens = [
 
 # Drag floating layouts.
 mouse = [
-    Drag("M-1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
-    Drag("M-3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
-    Click("M-2", lazy.window.bring_to_front()),
+    Drag("A-1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
+    Drag("A-3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Click("A-2", lazy.window.bring_to_front()),
 ]
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
-bring_front_click = False
+#bring_front_click = False 
+bring_front_click = "floating_only"
+floats_kept_above = True
 cursor_warp = False
 floating_layout = layout.Floating(
     **floating_theme,
@@ -548,11 +556,14 @@ def start_once():
 auto_minimize = True
 
 # When using the Wayland backend, this can be used to configure input devices.
-wl_input_rules = {
-        "type:keyboard": InputConfig(
-            kb_layout = "de"
-            )
-        } 
+if IS_WAYLAND:
+    wl_input_rules = {
+            "type:keyboard": InputConfig(
+                kb_layout = "de"
+                )
+            } 
+else:
+    wl_input_rules = "none"
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the

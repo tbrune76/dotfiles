@@ -1,0 +1,24 @@
+@define-color fg_color #ebdbb2; 
+
+#window {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+#main {
+  color: @fg_color;
+  border-radius: 10px;
+  background-color: #3c3836;
+}
+
+#entry {
+  color: @fg_color;
+  background-color: #665c54;
+  border-color: #8ec07c;
+  border-width: 9px;
+}
+
+#match {
+  color: @fg_color;
+  background-color: #928375;
+}
+

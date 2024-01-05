@@ -1,0 +1,4 @@
+nvim/.config/nvim/init.lua.bak
+qtile/.config/qtile/__pycache__
+nvim/.config/nvim/plugin/packer_compiled.lua
+qtile/.config/qtile/.config.py.~undo-tree~

@@ -209,6 +209,7 @@ lvim.plugins = {
       require("nvim-ts-autotag").setup()
     end,
   },
+  { "luckasRanarison/tree-sitter-hyprlang" },
   {
     "folke/todo-comments.nvim",
     event = "BufRead",
@@ -233,13 +234,13 @@ lvim.plugins = {
     --  vim.o.timeoutlen = 500
     -- end
   },
-  {
-    "nvim-telescope/telescope-project.nvim",
-    event = "BufWinEnter",
-    setup = function()
-      vim.cmd [[packadd telescope.nvim]]
-    end,
-  },
+  -- {
+  --   "nvim-telescope/telescope-project.nvim",
+  --   event = "BufWinEnter",
+  --   init = function()
+  --     vim.cmd [[packadd telescope.nvim]]
+  --   end,
+  -- },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)

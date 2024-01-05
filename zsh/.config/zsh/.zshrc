@@ -1,0 +1,1 @@
+/home/timo/.zshrc
