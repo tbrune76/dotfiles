@@ -89,7 +89,7 @@ filepos_max_saved_entries=1024
 
 [Layout]
 output_lines=0
-left_panel_size=66
+left_panel_size=182
 top_panel_size=0
 message_visible=true
 keybar_visible=true
@@ -149,7 +149,7 @@ select_flags=6
 simple_swap=false
 
 [Panelize]
-Nach *.orig nach dem Patchen suchen=find . -name \\*.orig -print
 SUID- und SGID-Programme suchen=find . \\( \\( -perm -04000 -a -perm /011 \\) -o \\( -perm -02000 -a -perm /01 \\) \\) -print
-Nach dem Patchen nach Ablehnungen suchen=find . -name \\*.rej -print
 Geänderte Git-Dateien=git ls-files --modified
+Nach dem Patchen nach Ablehnungen suchen=find . -name \\*.rej -print
+Nach *.orig nach dem Patchen suchen=find . -name \\*.orig -print
