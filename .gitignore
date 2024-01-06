@@ -5,3 +5,4 @@ qtile/.config/qtile/.config.py.~undo-tree~
 */__pycache__
 
 ranger/.config/ranger/plugins/__pycache__
+hypr/.config/hypr/machine.conf
