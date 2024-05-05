@@ -1,5 +1,5 @@
 #!/bin/sh
-alias emacs="emacsclient -c -a '/usr/bin/emacs'"
+#alias emacs="emacsclient -c -a '/usr/bin/emacs'"
 #alias j='z'
 alias f='zi'
 which lazygit > /dev/null && alias g='lazygit'
@@ -32,8 +32,9 @@ alias psmem='ps auxf | sort -nr -k 4 | head -5'
 # get top process eating cpu ##
 alias pscpu='ps auxf | sort -nr -k 3 | head -5'
 
-alias ls='exa --color=always --group-directories-first'
-alias ll='exa -lgM --git --time-style long-iso --icons --color=always --group-directories-first'
+alias ls='exa --color=always --group-directories-first --icons'
+#alias ll='exa -lgM --git --time-style long-iso'
+alias ll='ls -lgM --git --time-style long-iso'
 #alias la='exa -lga --color=always --group-directories-first'
 alias la='ll -a'
 

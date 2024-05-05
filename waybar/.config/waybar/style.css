@@ -320,3 +320,11 @@ label:focus {
 #privacy-item.audio-out {
     background-color: #0069d4;
 }
+
+#custom-tmux {
+    background-color: #A9B665;
+}
+
+#custom-checkupdates {
+  background-color: #FB4934;
+}

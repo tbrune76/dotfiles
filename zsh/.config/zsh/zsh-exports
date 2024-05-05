@@ -11,6 +11,6 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 #export PATH=$HOME/.local/share/go/bin:$PATH
 #export GOPATH=$HOME/.local/share/go
 #export PATH="$PATH:./node_modules/.bin"
-#eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh)"
 # eval "`pip completion --zsh`"
 
