@@ -4,4 +4,4 @@ image_size=16
 allow_markup=true
 term=alacritty
 insensitive=true
-
+show=drun,run
