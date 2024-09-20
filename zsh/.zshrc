@@ -37,4 +37,8 @@ fpath+=${ZDOTDIR:-~}/completions
 
 eval $(thefuck --alias)
 
-neofetch
+fastfetch
+#if [ -f "/home/timo/.config/fabric/fabric-bootstrap.inc" ]; then . "/home/timo/.config/fabric/fabric-bootstrap.inc"; fi
+autoload bashcompinit
+bashcompinit
+source "/home/timo/.config/zsh/.bash_completion"
