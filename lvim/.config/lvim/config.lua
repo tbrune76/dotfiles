@@ -211,6 +211,10 @@ lvim.plugins = {
   },
   { "luckasRanarison/tree-sitter-hyprlang" },
   {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    event = "BufRead",
+  },
+  {
     "folke/todo-comments.nvim",
     event = "BufRead",
     config = function()
@@ -223,7 +227,8 @@ lvim.plugins = {
     event = "BufRead",
     config = function()
       vim.cmd "highlight default link gitblame SpecialComment"
-      vim.g.gitblame_enabled = 0
+      require("gitblame").setup { enabled = false }
+      --vim.g.gitblame_enabled = 0
     end,
   },
   { "tpope/vim-repeat" },
@@ -258,6 +263,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 lvim.builtin.treesitter.rainbow.enable = true
+lvim.transparent_window = true
 
 vim.opt.relativenumber = true
 vim.opt.termguicolors = true
