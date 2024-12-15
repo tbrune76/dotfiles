@@ -1,7 +1,8 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     /* font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif; */
-    font-family: BlexMono Nerd Font Mono SemiBold;
+    /* font-family: BlexMono Nerd Font Mono SemiBold; */
+    font-family: FontAwesome;
     font-size: 12px;
 }
 
