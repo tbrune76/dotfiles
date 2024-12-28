@@ -2,7 +2,7 @@ export ZDOTDIR=$HOME/.config/zsh
 
 if [ -f "$ZDOTDIR/zsh-functions" ]; then
 	source $ZDOTDIR/zsh-functions
-	#zsh_add_file spaceship
+	zsh_add_file spaceship
 fi
 
 
@@ -22,7 +22,7 @@ EOBUNDLES
 
 
 #	antigen theme trapd00r
-#	antigen theme spaceship-prompt/spaceship-prompt
+	antigen theme spaceship-prompt/spaceship-prompt
 
 	antigen apply
 fi
@@ -36,11 +36,7 @@ fi
 fpath+=${ZDOTDIR:-~}/completions
 
 eval $(thefuck --alias)
-
-# Install oh-my-posh:
-# curl -s https://ohmyposh.dev/install.sh | bash -s
-eval "$(oh-my-posh init zsh --config $HOME/.cache/oh-my-posh/themes/ys.omp.json)"
-
+eval "$(zoxide init zsh)"
 
 fastfetch
 #if [ -f "/home/timo/.config/fabric/fabric-bootstrap.inc" ]; then . "/home/timo/.config/fabric/fabric-bootstrap.inc"; fi
