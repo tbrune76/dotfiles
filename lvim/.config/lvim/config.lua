@@ -83,7 +83,6 @@ lvim.builtin.which_key.mappings["z"] = {
   "<cmd>ZenMode<cr>", "ZenMode"
 }
 
-
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true

@@ -2,14 +2,14 @@ export ZDOTDIR=$HOME/.config/zsh
 
 if [ -f "$ZDOTDIR/zsh-functions" ]; then
 	source $ZDOTDIR/zsh-functions
-	zsh_add_file spaceship
+	#zsh_add_file spaceship
 fi
 
 
 if [ -f "$ZDOTDIR/antigen.zsh" ]; then
 	source $ZDOTDIR/antigen.zsh
 
-	antigen use oh-my-zsh
+# antigen use oh-my-zsh
 
 	antigen bundles <<EOBUNDLES
 		colorize
@@ -22,7 +22,7 @@ EOBUNDLES
 
 
 #	antigen theme trapd00r
-	antigen theme spaceship-prompt/spaceship-prompt
+#	antigen theme spaceship-prompt/spaceship-prompt
 
 	antigen apply
 fi
@@ -37,8 +37,13 @@ fpath+=${ZDOTDIR:-~}/completions
 
 eval $(thefuck --alias)
 
+# Install oh-my-posh:
+# curl -s https://ohmyposh.dev/install.sh | bash -s
+eval $(oh-my-posh init zsh --config $HOME/.cache/oh-my-posh/themes/ys.omp.json)
+
+
 fastfetch
 #if [ -f "/home/timo/.config/fabric/fabric-bootstrap.inc" ]; then . "/home/timo/.config/fabric/fabric-bootstrap.inc"; fi
 autoload bashcompinit
 bashcompinit
-source "/home/timo/.config/zsh/.bash_completion"
+#source "/home/timo/.config/zsh/.bash_completion"

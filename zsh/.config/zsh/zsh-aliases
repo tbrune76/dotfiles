@@ -1,11 +1,7 @@
 #!/bin/sh
-#alias emacs="emacsclient -c -a '/usr/bin/emacs'"
-#alias j='z'
 alias f='zi'
 which lazygit > /dev/null && alias g='lazygit'
-#alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
-#alias vimconfig='${EDITOR} ~/.config/nvim/init.vim'
-#alias vimlua='${EDITOR} ~/.config/nvim/init.lua'
+which yazi > /dev/null && alias y='yazi'
 alias zshconfig='${EDITOR} ~/.zshrc'
 
 alias v='lvim'
@@ -32,11 +28,13 @@ alias psmem='ps auxf | sort -nr -k 4 | head -5'
 # get top process eating cpu ##
 alias pscpu='ps auxf | sort -nr -k 3 | head -5'
 
-alias ls='exa --color=always --group-directories-first --icons'
+alias ls='eza --color=always --group-directories-first --icons'
 #alias ll='exa -lgM --git --time-style long-iso'
 alias ll='ls -lgM --git --time-style long-iso'
 #alias la='exa -lga --color=always --group-directories-first'
 alias la='ll -a'
+
+alias ..='cd ..'
 
 # gpg encryption
 # verify signature for isos
