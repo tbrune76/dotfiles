@@ -39,7 +39,7 @@ eval $(thefuck --alias)
 
 # Install oh-my-posh:
 # curl -s https://ohmyposh.dev/install.sh | bash -s
-eval $(oh-my-posh init zsh --config $HOME/.cache/oh-my-posh/themes/ys.omp.json)
+eval "$(oh-my-posh init zsh --config $HOME/.cache/oh-my-posh/themes/ys.omp.json)"
 
 
 fastfetch
