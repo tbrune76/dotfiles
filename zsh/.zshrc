@@ -9,7 +9,7 @@ fi
 if [ -f "$ZDOTDIR/antigen.zsh" ]; then
 	source $ZDOTDIR/antigen.zsh
 
-# antigen use oh-my-zsh
+  antigen use oh-my-zsh
 
 	antigen bundles <<EOBUNDLES
 		colorize
