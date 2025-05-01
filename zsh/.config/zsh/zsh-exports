@@ -1,5 +1,4 @@
 #!/bin/sh
-# HISTFILE="$XDG_DATA_HOME"/zsh/history
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=1000000
 SAVEHIST=1000000
@@ -9,9 +8,6 @@ export MANWIDTH=999
 export EDITOR=lvim
 export PATH=$HOME/.cargo/bin:$PATH
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-#export PATH=$HOME/.local/share/go/bin:$PATH
-#export GOPATH=$HOME/.local/share/go
-#export PATH="$PATH:./node_modules/.bin"
-#eval "$(zoxide init zsh)"
-# eval "`pip completion --zsh`"
+export ENTE_CLI_SECRETS_PATH=$HOME/.ente/ente_secret.txt
+export ENTE_CLI_CONFIG_PATH=$HOME/.config/ente-cli/
 

@@ -43,3 +43,5 @@ fastfetch
 autoload bashcompinit
 bashcompinit
 #source "/home/timo/.config/zsh/.bash_completion"
+
+[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
