@@ -4,9 +4,9 @@ which lazygit > /dev/null && alias g='lazygit'
 which yazi > /dev/null && alias y='yazi'
 alias zshconfig='${EDITOR} ~/.zshrc'
 
-alias v='lvim'
-alias vi='lvim'
-alias vim='lvim'
+alias vim='nvim'
+alias vi='vim'
+alias v='vim'
 
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'
