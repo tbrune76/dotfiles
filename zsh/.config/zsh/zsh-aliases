@@ -1,7 +1,6 @@
-#!/bin/sh
-alias f='zi'
-which lazygit > /dev/null && alias g='lazygit'
-which yazi > /dev/null && alias y='yazi'
+#alias f='zi'
+which lazygit >/dev/null && alias g='lazygit'
+which yazi >/dev/null && alias y='yazi'
 alias zshconfig='${EDITOR} ~/.zshrc'
 
 alias vim='nvim'
@@ -13,15 +12,6 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
-# confirm before overwriting something
-#alias cp='cp -i'
-#alias mv='mv -i'
-#alias rm='rm -i'
-
-# easier to read disk
-alias df='df -h'     # human-readable sizes
-alias free='free -m' # show sizes in MB
-
 # get top process eating memory
 alias psmem='ps auxf | sort -nr -k 4 | head -5'
 
@@ -29,16 +19,19 @@ alias psmem='ps auxf | sort -nr -k 4 | head -5'
 alias pscpu='ps auxf | sort -nr -k 3 | head -5'
 
 alias ls='eza --color=always --group-directories-first --icons'
-#alias ll='exa -lgM --git --time-style long-iso'
 alias ll='ls -lgM --git --time-style long-iso'
-#alias la='exa -lga --color=always --group-directories-first'
 alias la='ll -a'
 
 alias ..='cd ..'
+
+alias cat='ccat'
+alias less='cless'
+
+# Set alias for ssh if running kitty
+[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
 
 # gpg encryption
 # verify signature for isos
 #alias gpg-check="gpg --keyserver-options auto-key-retrieve --verify"
 # receive the key of a developer
 #alias gpg-retrieve="gpg --keyserver-options auto-key-retrieve --receive-keys"
-

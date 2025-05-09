@@ -1,47 +1,57 @@
-export ZDOTDIR=$HOME/.config/zsh
+# Set the directory we want to store zinit and plugins
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-if [ -f "$ZDOTDIR/zsh-functions" ]; then
-	source $ZDOTDIR/zsh-functions
-	zsh_add_file spaceship
+# Download Zinit, if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
+# Source/Load zinit
+source "${ZINIT_HOME}/zinit.zsh"
 
-if [ -f "$ZDOTDIR/antigen.zsh" ]; then
-	source $ZDOTDIR/antigen.zsh
+# Add Spaceship
+zinit light spaceship-prompt/spaceship-prompt
+zinit light spaceship-prompt/spaceship-vi-mode
 
-  antigen use oh-my-zsh
+# Source Spaceship configuration if it exists
+[[ ! -f ~/.config/zsh/spaceship ]] || source ~/.config/zsh/spaceship
 
-	antigen bundles <<EOBUNDLES
-		colorize
-		fzf
-		zoxide
-		zsh-users/zsh-syntax-highlighting
-		zsh-users/zsh-autosuggestions
-		zsh-users/zsh-completions
-EOBUNDLES
+# Add zsh plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
 
+# Add snippets
+#zinit snippet OMZP::sudo
+zinit snippet OMZP::colorize
+zinit snippet OMZP::colored-man-pages
 
-#	antigen theme trapd00r
-	antigen theme spaceship-prompt/spaceship-prompt
+# Load completions
+autoload -U compinit && compinit
 
-	antigen apply
-fi
+zinit cdreplay -q
 
-if [ -f "$ZDOTDIR/zsh-functions" ]; then
-	zsh_add_file zsh-aliases
-	zsh_add_file zsh-exports
-	zsh_add_file zsh-keybindings
-fi
+spaceship add --after line_sep vi_mode
 
-fpath+=${ZDOTDIR:-~}/completions
+# Source additional files if they exist
+[[ ! -f ~/.config/zsh/zsh-history ]] || source ~/.config/zsh/zsh-history
+[[ ! -f ~/.config/zsh/zsh-aliases ]] || source ~/.config/zsh/zsh-aliases
+[[ ! -f ~/.config/zsh/zsh-exports ]] || source ~/.config/zsh/zsh-exports
+[[ ! -f ~/.config/zsh/zsh-keybinds ]] || source ~/.config/zsh/zsh-keybinds
 
-eval $(thefuck --alias)
-eval "$(zoxide init zsh)"
+# Completion styling
+#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
+# Shell integrations
+eval "$(fzf --zsh)"
+eval "$(thefuck --alias)"
+eval "$(zoxide init --cmd cd zsh)"
+eval spaceship_vi_mode_enable
 
 fastfetch
-#if [ -f "/home/timo/.config/fabric/fabric-bootstrap.inc" ]; then . "/home/timo/.config/fabric/fabric-bootstrap.inc"; fi
-autoload bashcompinit
-bashcompinit
-#source "/home/timo/.config/zsh/.bash_completion"
-
-[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
