@@ -1,4 +1,6 @@
 format = '$time$all'
+follow_symlinks = false
+add_newline = true 
 
 [username]
 style_user = 'white bold'
@@ -22,3 +24,17 @@ format = '\[[$time](bold 245)\] '
 time_format = '%T'
 #utc_time_offset = '-5'
 #time_range = '10:00:00-14:00:00'
+
+[character]
+success_symbol = 'I[>](bold green)'
+error_symbol = 'I[>](bold red)'
+vimcmd_symbol = 'N[>](bold green)'
+
+[directory]
+truncation_length = 0
+truncate_to_repo = false
+truncation_symbol = '…/'
+
+[localip]
+disabled = true
+

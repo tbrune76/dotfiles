@@ -1,7 +1,7 @@
 alias f='zi'
 which lazygit >/dev/null && alias g='lazygit'
 which yazi >/dev/null && alias y='yazi'
-alias zshconfig='${EDITOR} ~/.zshrc'
+alias zconf='${EDITOR} ~/.zshrc'
 
 alias vim='nvim'
 alias vi='vim'
@@ -23,9 +23,6 @@ alias ll='ls -lgM --git --time-style long-iso'
 alias la='ll -a'
 
 alias ..='cd ..'
-
-#alias cat='ccat'
-#alias less='cless'
 
 # Set alias for ssh if running kitty
 [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"

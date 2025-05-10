@@ -31,11 +31,14 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
+
+
 # Add snippets
 #zinit snippet OMZP::sudo
 zinit snippet OMZP::colorize
 zinit snippet OMZP::colored-man-pages
-zinit snippet OMZP::vi-mode
 
 # Load completions
 autoload -U compinit && compinit
