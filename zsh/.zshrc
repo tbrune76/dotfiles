@@ -10,20 +10,10 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-# Remove "zi" alias for default zoxide alias to work
-#zinit ice atload'unalias zi'
-
 zinit ice as"command" from"gh-r" \
           atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
           atpull"%atclone" src"init.zsh"
 zinit light starship/starship
-
-# Add Spaceship
-#zinit light spaceship-prompt/spaceship-prompt
-#zinit light spaceship-prompt/spaceship-vi-mode
-
-# Source Spaceship configuration if it exists
-#[[ ! -f ~/.config/zsh/spaceship ]] || source ~/.config/zsh/spaceship
 
 # Add zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
@@ -33,7 +23,6 @@ zinit light Aloxaf/fzf-tab
 
 zinit ice depth=1
 zinit light jeffreytse/zsh-vi-mode
-
 
 # Add snippets
 #zinit snippet OMZP::sudo
@@ -45,15 +34,25 @@ autoload -U compinit && compinit
 
 zinit cdreplay -q
 
-#spaceship add --after line_sep vi_mode
-
 # Source additional files if they exist
-[[ ! -f ~/.config/zsh/zsh-history ]] || source ~/.config/zsh/zsh-history
 [[ ! -f ~/.config/zsh/zsh-aliases ]] || source ~/.config/zsh/zsh-aliases
 [[ ! -f ~/.config/zsh/zsh-exports ]] || source ~/.config/zsh/zsh-exports
 [[ ! -f ~/.config/zsh/zsh-keybinds ]] || source ~/.config/zsh/zsh-keybinds
 
-# Completion styling
+# History (see man zshoptions)
+HISTSIZE=10000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Completion styling (see man zslzle)
 #zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
@@ -62,10 +61,10 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 
 # Shell integrations
+# Unalias zi first to make zoxide work with default setting
 unalias zi
-eval "$(fzf --zsh)"
-eval "$(thefuck --alias)"
-eval "$(zoxide init zsh)"
-#eval spaceship_vi_mode_enable
+which fzf >/dev/null && eval "$(fzf --zsh)"
+which thefuck >/dev/null && eval "$(thefuck --alias)"
+which zoxide >/dev/null && eval "$(zoxide init zsh)"
 
-fastfetch
+which fastfetch >/dev/null && fastfetch

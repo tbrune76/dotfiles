@@ -25,10 +25,8 @@ time_format = '%T'
 #utc_time_offset = '-5'
 #time_range = '10:00:00-14:00:00'
 
-[character]
-success_symbol = 'I[>](bold green)'
-error_symbol = 'I[>](bold red)'
-vimcmd_symbol = 'N[>](bold green)'
+#[character]
+#vimcmd_symbol = '[N](bold green)'
 
 [directory]
 truncation_length = 0

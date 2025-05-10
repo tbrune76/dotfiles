@@ -144,11 +144,3 @@ bindkey "^[m" copy-prev-shell-word
 ## Fix weird sequence that rxvt produces
 #bindkey -s '^[[Z' '\t'
 #
-
-bindkey -v
-#bindkey -s '^o' 'ranger^M'
-#bindkey -s '^z' 'zi^M'
-bindkey -s '^f' 'zi^M'
-bindkey -s '^n' 'nvim $(fzf)^M'
-
-#
