@@ -10,6 +10,9 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
+# Remove "zi" alias for default zoxide alias to work
+zinit ice atload'unalias zi'
+
 # Add Spaceship
 zinit light spaceship-prompt/spaceship-prompt
 zinit light spaceship-prompt/spaceship-vi-mode
@@ -51,7 +54,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(thefuck --alias)"
-eval "$(zoxide init --cmd cd zsh)"
+eval "$(zoxide init zsh)"
 eval spaceship_vi_mode_enable
 
 fastfetch

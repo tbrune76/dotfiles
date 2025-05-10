@@ -1,8 +1,3 @@
-#bindkey -s '^o' 'ranger^M'
-#bindkey -s '^z' 'zi^M'
-#bindkey -s '^f' 'zi^M'
-bindkey -s '^n' 'nvim $(fzf)^M'
-
 
 # http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html
 # http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Zle-Builtins
@@ -148,4 +143,12 @@ bindkey "^[m" copy-prev-shell-word
 #bindkey '^I' complete-word
 ## Fix weird sequence that rxvt produces
 #bindkey -s '^[[Z' '\t'
+#
+
+bindkey -v
+#bindkey -s '^o' 'ranger^M'
+#bindkey -s '^z' 'zi^M'
+bindkey -s '^f' 'zi^M'
+bindkey -s '^n' 'nvim $(fzf)^M'
+
 #

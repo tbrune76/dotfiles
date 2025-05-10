@@ -24,8 +24,8 @@ alias la='ll -a'
 
 alias ..='cd ..'
 
-alias cat='ccat'
-alias less='cless'
+#alias cat='ccat'
+#alias less='cless'
 
 # Set alias for ssh if running kitty
 [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
