@@ -11,14 +11,19 @@ fi
 source "${ZINIT_HOME}/zinit.zsh"
 
 # Remove "zi" alias for default zoxide alias to work
-zinit ice atload'unalias zi'
+#zinit ice atload'unalias zi'
+
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+zinit light starship/starship
 
 # Add Spaceship
-zinit light spaceship-prompt/spaceship-prompt
-zinit light spaceship-prompt/spaceship-vi-mode
+#zinit light spaceship-prompt/spaceship-prompt
+#zinit light spaceship-prompt/spaceship-vi-mode
 
 # Source Spaceship configuration if it exists
-[[ ! -f ~/.config/zsh/spaceship ]] || source ~/.config/zsh/spaceship
+#[[ ! -f ~/.config/zsh/spaceship ]] || source ~/.config/zsh/spaceship
 
 # Add zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
@@ -30,13 +35,14 @@ zinit light Aloxaf/fzf-tab
 #zinit snippet OMZP::sudo
 zinit snippet OMZP::colorize
 zinit snippet OMZP::colored-man-pages
+zinit snippet OMZP::vi-mode
 
 # Load completions
 autoload -U compinit && compinit
 
 zinit cdreplay -q
 
-spaceship add --after line_sep vi_mode
+#spaceship add --after line_sep vi_mode
 
 # Source additional files if they exist
 [[ ! -f ~/.config/zsh/zsh-history ]] || source ~/.config/zsh/zsh-history
@@ -51,10 +57,12 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
+
 # Shell integrations
+unalias zi
 eval "$(fzf --zsh)"
 eval "$(thefuck --alias)"
 eval "$(zoxide init zsh)"
-eval spaceship_vi_mode_enable
+#eval spaceship_vi_mode_enable
 
 fastfetch

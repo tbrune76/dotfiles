@@ -1,4 +1,4 @@
-#alias f='zi'
+alias f='zi'
 which lazygit >/dev/null && alias g='lazygit'
 which yazi >/dev/null && alias y='yazi'
 alias zshconfig='${EDITOR} ~/.zshrc'

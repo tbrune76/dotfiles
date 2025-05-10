@@ -7,3 +7,4 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export ENTE_CLI_SECRETS_PATH=$HOME/.ente/ente_secret.txt
 export ENTE_CLI_CONFIG_PATH=$HOME/.config/ente-cli/
 export BAT_THEME=gruvbox-dark
+export STARSHIP_CONFIG=$HOME/.config/zsh/starship.toml
