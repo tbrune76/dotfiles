@@ -21,23 +21,26 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
-zinit ice depth=1
-zinit light jeffreytse/zsh-vi-mode
+#zinit ice depth=1
+#zinit light jeffreytse/zsh-vi-mode
 
 # Add snippets
 #zinit snippet OMZP::sudo
 zinit snippet OMZP::colorize
 zinit snippet OMZP::colored-man-pages
 
-# Load completions
-autoload -U compinit && compinit
-
-zinit cdreplay -q
-
 # Source additional files if they exist
 [[ ! -f ~/.config/zsh/zsh-aliases ]] || source ~/.config/zsh/zsh-aliases
 [[ ! -f ~/.config/zsh/zsh-exports ]] || source ~/.config/zsh/zsh-exports
 [[ ! -f ~/.config/zsh/zsh-keybinds ]] || source ~/.config/zsh/zsh-keybinds
+
+# Source fabric completions and aliases if fabric is installed
+which fabric >/dev/null && source ~/.config/zsh/fabric
+
+# Load completions
+autoload -Uz compinit && compinit
+
+zinit cdreplay -q
 
 # History (see man zshoptions)
 HISTSIZE=10000
@@ -59,6 +62,7 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
+#bindkey -v
 
 # Shell integrations
 # Unalias zi first to make zoxide work with default setting
