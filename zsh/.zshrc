@@ -34,8 +34,9 @@ zinit snippet OMZP::colored-man-pages
 [[ ! -f ~/.config/zsh/zsh-exports ]] || source ~/.config/zsh/zsh-exports
 [[ ! -f ~/.config/zsh/zsh-keybinds ]] || source ~/.config/zsh/zsh-keybinds
 
-# Source fabric completions and aliases if fabric is installed
+# Source other specific configs if the corresponding app is available
 which fabric >/dev/null && source ~/.config/zsh/fabric
+which yazi >/dev/null && source ~/.config/zsh/yazi
 
 # Load completions
 autoload -Uz compinit && compinit
