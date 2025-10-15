@@ -23,6 +23,11 @@ alias la='ll -a'
 
 alias ..='cd ..'
 
+alias sudo='sudo-rs '
+alias visudo='visudo-rs'
+alias su='su-rs'
+alias sudoedit='sudoedit-rs'
+
 # Set alias for ssh if running kitty
 [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
 

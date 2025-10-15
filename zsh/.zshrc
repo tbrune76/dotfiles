@@ -73,3 +73,10 @@ which thefuck >/dev/null && eval "$(thefuck --alias)"
 which zoxide >/dev/null && eval "$(zoxide init zsh)"
 
 which fastfetch >/dev/null && fastfetch
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+#[[ -f /home/timo/.dart-cli-completion/zsh-config.zsh ]] && . /home/timo/.dart-cli-completion/zsh-config.zsh || true
+[[ -f ~/.dart-cli-completion/zsh-config.zsh ]] && . ~/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
